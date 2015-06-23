@@ -1,0 +1,141 @@
+// ----------------------------------------------------------------------------;
+// Basic normalizing of elements used.
+
+* {
+    &, &::before, &::after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+}
+
+body,
+table,
+select,
+option,
+textarea,
+input {
+    font-family: "Titillium Web";
+}
+
+html {
+    display: -webkit-flex;
+    display: flex;
+    height: 100%;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+body {
+    width: 90%;
+    max-width: 50em;
+    line-height: 1.5;
+    // -webkit-align-self: center;
+    // align-self: center;
+    display: inline-block;
+    text-align: left;
+}
+
+p { margin: 0 0 2em; }
+
+
+// ----------------------------------------------------------------------------;
+// General helpers
+
+.u-align-center {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+
+// ----------------------------------------------------------------------------;
+// Basic normalizing of elements used.
+
+.Form { padding: 5em; background-color: fade(black, 2%); box-shadow: 0 0 5px fade(black, 10%); }
+
+.Form-section {
+    margin-bottom: 1.5em;
+
+    & + & {
+        padding-top: 1em;
+        border-top: 1px dotted fade(black, 10%);
+    }
+}
+
+.Form-title {
+    display: block;
+    font-weight: bold;
+    margin-bottom: .5em;
+}
+
+.Form-label {
+    display: block;
+}
+
+// Radio- and checkboxes.
+.Form-label--tick:extend(.Form-label) {
+    position: relative;
+    display: inline-block;
+    & + & {
+        margin-left: 1em;
+    }
+}
+
+.Form-label-radio,
+.Form-label-checkbox {
+    position: absolute;
+    z-index: -1;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+
+    & + .Form-label-text {
+        cursor: pointer;
+        margin-left: 1em;
+
+        &::before {
+            font-size: 0.875em; // play with this for size
+            display: inline-block;
+            width: 1.75em;
+            height: 1.75em;
+            line-height: 1.5;
+            border: 1px solid #ccc;
+            margin-right: 0.25em;
+            font-family: FontAwesome;
+            content: "\00a0"; // space
+            color: white;
+            background-clip: padding-box;
+            background-color: white;
+            text-align: center;
+            // vertical-align: baseline;
+        }
+
+        &:hover::before {
+            border-color: black !important;
+            box-shadow: 0 0 0 0 black !important;
+        }
+    }
+
+    &:checked + .Form-label-text::before {
+        background-color: black;
+        border-color: black;
+        box-shadow: 0 0 0 0 black;
+        content: "\f00c"; // fa-check
+    }
+
+    &:focus + .Form-label-text::before,
+    &:active + .Form-label-text::before {
+        border-color: lighten(#0087d4, 20%);
+        box-shadow: 0 0 2px 0 fade(#0087d4, 20%);
+    }
+}
+
+.Form-label-radio + .Form-label-text::before {
+    border-radius: 100%;
+}
