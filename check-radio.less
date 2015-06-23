@@ -1,3 +1,11 @@
+// https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md
+
+@active-color: #0087d4;
+@primary-color: black;
+@text-color: white;
+@border-color: lighten(@primary-color, 80%);
+
+
 // ----------------------------------------------------------------------------;
 // Basic normalizing of elements used.
 
@@ -56,9 +64,18 @@ p { margin: 0 0 2em; }
 // ----------------------------------------------------------------------------;
 // Basic normalizing of elements used.
 
-.Form { padding: 5em; background-color: fade(black, 2%); box-shadow: 0 0 5px fade(black, 10%); }
+.Form {
+    padding: 2em;
+    background-color: fade(black, 2%);
+    box-shadow: 0 0 5px fade(black, 10%);
+    @media only screen and (min-width: 50em) {
+        padding: 5em;
+    }
+}
 
 .Form-section {
+    // Correct .Form-label--tick margin-right.
+    margin-right: -1em;
     margin-bottom: 1.5em;
 
     & + & {
@@ -81,9 +98,7 @@ p { margin: 0 0 2em; }
 .Form-label--tick:extend(.Form-label) {
     position: relative;
     display: inline-block;
-    & + & {
-        margin-left: 1em;
-    }
+    margin-left: 1em;
 }
 
 .Form-label-radio,
@@ -97,7 +112,7 @@ p { margin: 0 0 2em; }
 
     & + .Form-label-text {
         cursor: pointer;
-        margin-left: 1em;
+        margin-right: 1em;
 
         &::before {
             font-size: 0.875em; // play with this for size
@@ -105,11 +120,11 @@ p { margin: 0 0 2em; }
             width: 1.75em;
             height: 1.75em;
             line-height: 1.5;
-            border: 1px solid #ccc;
+            border: 1px solid @border-color;
             margin-right: 0.25em;
             font-family: FontAwesome;
             content: "\00a0"; // space
-            color: white;
+            color: @text-color;
             background-clip: padding-box;
             background-color: white;
             text-align: center;
@@ -117,22 +132,22 @@ p { margin: 0 0 2em; }
         }
 
         &:hover::before {
-            border-color: black !important;
-            box-shadow: 0 0 0 0 black !important;
+            border-color: @primary-color !important;
+            box-shadow: 0 0 0 0 @primary-color !important;
         }
     }
 
     &:checked + .Form-label-text::before {
-        background-color: black;
-        border-color: black;
-        box-shadow: 0 0 0 0 black;
+        background-color: @primary-color;
+        border-color: @primary-color;
+        box-shadow: 0 0 0 0 @primary-color;
         content: "\f00c"; // fa-check
     }
 
     &:focus + .Form-label-text::before,
     &:active + .Form-label-text::before {
-        border-color: lighten(#0087d4, 20%);
-        box-shadow: 0 0 2px 0 fade(#0087d4, 20%);
+        border-color: lighten(@active-color, 20%);
+        box-shadow: 0 0 2px 0 fade(@active-color, 20%);
     }
 }
 
